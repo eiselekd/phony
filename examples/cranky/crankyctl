@@ -33,7 +33,7 @@ class CrankyShell(cmd.Cmd):
 
     try:
       self.phony = self.bus.get_object(self.PHONY_SERVICE_NAME, self.PHONY_OBJECT_PATH)
-    except Exception, ex:
+    except Exception as ex:
       raise Exception('Could not get %s: %s' % (self.PHONY_SERVICE_NAME, ex))
 
   def find_socket_file(self):
@@ -50,107 +50,107 @@ class CrankyShell(cmd.Cmd):
   def do_voice(self, arg):
     try:
       self.phony.BeginVoiceDial()
-    except Exception, ex:
-      print str(ex)
+    except Exception as ex:
+      print(str(ex))
 
   def do_dial(self, arg):
     try:
       self.phony.Dial(arg)
-    except Exception, ex:
-      print str(ex)
+    except Exception as ex:
+      print(str(ex))
 
   def do_answer(self, arg):
     try:
       self.phony.Answer()
-    except Exception, ex:
-      print str(ex)
+    except Exception as ex:
+      print(str(ex))
 
   def do_hangup(self, arg):
     try:
       self.phony.HangUp()
-    except Exception, ex:
-      print str(ex)
+    except Exception as ex:
+      print(str(ex))
 
   def do_mute(self, arg):
     try:
       self.phony.Mute()
-    except Exception, ex:
-      print str(ex)
+    except Exception as ex:
+      print(str(ex))
 
   def do_unmute(self, arg):
     try:
       self.phony.Unmute()
-    except Exception, ex:
-      print str(ex)
+    except Exception as ex:
+      print(str(ex))
 
   def do_mic_volume(self, arg):
     try:
       self.phony.SetMicrophoneVolume(int(arg))
-    except Exception, ex:
-      print str(ex)
+    except Exception as ex:
+      print(str(ex))
 
   def do_speaker_volume(self, arg):
     try:
       self.phony.SetSpeakerVolume(int(arg))
-    except Exception, ex:
-      print str(ex)
+    except Exception as ex:
+      print(str(ex))
 
   def do_reset(self, arg):
     try:
       self.phony.Reset()
-    except Exception, ex:
-      print str(ex)
+    except Exception as ex:
+      print(str(ex))
 
   def do_status(self, arg):
     try:
       status = self.phony.GetStatus()
       for key,val in status.iteritems():
-        print '%s:\t\t%s' % (key, val)
-    except Exception, ex:
-      print str(ex)
+        print('%s:\t\t%s' % (key, val))
+    except Exception as ex:
+      print (str(ex))
 
   def do_state(self, arg):
     try:
       state = self.phony.GetState()
-      print state
-    except Exception, ex:
-        print str(ex)
+      print (state)
+    except Exception as ex:
+        print (str(ex))
 
   def do_start_ringing(self, arg):
     try:
       self.phony.StartRinging()
-    except Exception, ex:
-      print str(ex)
+    except Exception as ex:
+      print (str(ex))
 
   def do_stop_ringing(self, arg):
     try:
       self.phony.StopRinging()
-    except Exception, ex:
-      print str(ex)
+    except Exception as ex:
+      print (str(ex))
 
   def do_short_ring(self, arg):
     try:
       self.phony.ShortRing()
-    except Exception, ex:
-      print str(ex)
+    except Exception as ex:
+      print (str(ex))
 
   def do_simulate_off_hook(self, arg):
     try:
         self.phony.SimulateOffHook()
-    except Exception, ex:
-      print str(ex)
+    except Exception as ex:
+      print (str(ex))
 
   def do_simulate_on_hook(self, arg):
     try:
         self.phony.SimulateOnHook()
-    except Exception, ex:
-      print str(ex)
+    except Exception as ex:
+      print (str(ex))
 
   def do_simulate_hand_crank_turned(self, arg):
     try:
         self.phony.SimulateHandCrankTurned()
-    except Exception, ex:
-      print str(ex)
+    except Exception as ex:
+      print (str(ex))
 
   def do_exit(self, arg):
     sys.exit()

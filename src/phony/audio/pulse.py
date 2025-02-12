@@ -80,13 +80,13 @@ class PulseAudio(ClassLogger):
     source = str(self._get_device_property(self._microphone_source_properties, 'Name'))
 
     self._microphone_to_primary_loopback = \
-      self._core.LoadModule(
-        'module-loopback',
-        {
-          'sink': sink,
-          'source': source,
-          'latency_msec': 1
-        }
+      self._core.LoadModule("module-loopback", {
+          "sink": sink,
+          "source": source
+          #,
+          # "latency_msec": 1
+        },
+        dbus_interface=PulseAudio.PA_CORE_INTERFACE
       )
 
   def _find_microphone_source(self, hint = None):
