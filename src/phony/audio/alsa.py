@@ -67,24 +67,31 @@ class Alsa(ClassLogger):
   def _find_suitable_mixers(self, card_index = -1):
     mic = None
     speaker = None
-
     if card_index < 0:
       for card_index in range(0, Alsa.CARD_INDICES_TO_TRY):
         try:
           mixers = alsaaudio.mixers(cardindex = card_index)
-
-          if 'Mic' in mixers and 'Speaker' in mixers:
-            mic = alsaaudio.Mixer(control = 'Mic', cardindex = card_index)
+          print(f" + {card_index}:{str(mixers)}")
+          if ('Mic' in mixers or 'Headset Mic' in mixers) and 'Speaker' in mixers:
+            mic = 'Mic'
+            if 'Headset Mic' in mixers:
+              mic = 'Headset Mic'
+            mic = alsaaudio.Mixer(control = mic, cardindex = card_index)
             speaker = alsaaudio.Mixer(control = 'Speaker', cardindex = card_index)
             break
 
-        except Exception:
+        except Exception as e:
+          print(str(e))
           pass
     else:
       mixers = alsaaudio.mixers(cardindex = card_index)
+      print(f" + {card_index}:{str(mixers)}")
 
-      if 'Mic' in mixers and 'Speaker' in mixers:
-        mic = alsaaudio.Mixer(control = 'Mic', cardindex = card_index)
+      if ('Mic' in mixers or 'Headset Mic' in mixers) and 'Speaker' in mixers:
+        mic = 'Mic'
+        if 'Headset Mic' in mixers:
+          mic = 'Headset Mic'
+        mic = alsaaudio.Mixer(control = mic, cardindex = card_index)
         speaker = alsaaudio.Mixer(control = 'Speaker', cardindex = card_index)
 
     return speaker, mic
