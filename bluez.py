@@ -7,6 +7,7 @@ import phony.bluetooth.profiles.handsfree
 from phony.base import log
 from phony.base.log import ClassLogger, ScopedLogger
 
+socket_file="/tmp/a"
 interface="hci0"
 audio_card_index=3
 session_bus_path = os.environ.get('DBUS_SESSION_BUS_ADDRESS')
