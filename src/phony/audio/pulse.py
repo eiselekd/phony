@@ -92,6 +92,7 @@ class PulseAudio(ClassLogger):
   def _find_microphone_source(self, hint = None):
     for path, properties in self._source_properties_by_path.items():
       name = self._get_device_property(properties, 'Name')
+      print(f" + source:{name}")
       if PulseAudio._is_suitable_microphone_source(name):
         if not hint:
           return (path, properties)
@@ -104,6 +105,7 @@ class PulseAudio(ClassLogger):
   def _find_primary_audio_sink(self, hint = None):
     for path, properties in self._sink_properties_by_path.items():
       name = self._get_device_property(properties, 'Name')
+      print(f" + sink:{name}")
       if PulseAudio._is_suitable_primary_audio_sink(name):
         if not hint:
           return (path, properties)
@@ -186,13 +188,15 @@ class PulseAudio(ClassLogger):
   def _is_suitable_microphone_source(source_name):
     return source_name.startswith('alsa_input') and \
       (source_name.endswith('analog-stereo') or \
-        source_name.endswith('analog-mono'))
+       source_name.endswith('analog-mono') or \
+       source_name.endswith('multichannel-input'))
 
   @staticmethod
   def _is_suitable_primary_audio_sink(sink_name):
     return sink_name.startswith('alsa_output') and \
       (sink_name.endswith('analog-stereo') or \
-        sink_name.endswith('analog-mono'))
+       sink_name.endswith('analog-mono') or \
+       sink_name.endswith('multichannel-output'))
 
   def __enter__(self):
     return self
