@@ -72,12 +72,15 @@ class Alsa(ClassLogger):
         try:
           mixers = alsaaudio.mixers(cardindex = card_index)
           print(f" + {card_index}:{str(mixers)}")
-          if ('Mic' in mixers or 'Headset Mic' in mixers) and 'Speaker' in mixers:
+          if ('Mic' in mixers or 'Headset Mic' in mixers) and ('Speaker' in mixers or 'UMC1820 Output' in mixers):
             mic = 'Mic'
             if 'Headset Mic' in mixers:
               mic = 'Headset Mic'
+            speacer = 'Speaker'
+            if 'UMC1820 Output' in mixers:
+              speacer = 'UMC1820 Output'
             mic = alsaaudio.Mixer(control = mic, cardindex = card_index)
-            speaker = alsaaudio.Mixer(control = 'Speaker', cardindex = card_index)
+            speaker = alsaaudio.Mixer(control = speacer, cardindex = card_index)
             break
 
         except Exception as e:
@@ -87,12 +90,15 @@ class Alsa(ClassLogger):
       mixers = alsaaudio.mixers(cardindex = card_index)
       print(f" + {card_index}:{str(mixers)}")
 
-      if ('Mic' in mixers or 'Headset Mic' in mixers) and 'Speaker' in mixers:
+      if ('Mic' in mixers or 'Headset Mic' in mixers) and ('Speaker' in mixers or 'UMC1820 Output' in mixers):
         mic = 'Mic'
         if 'Headset Mic' in mixers:
           mic = 'Headset Mic'
+        speacer = 'Speaker'
+        if 'UMC1820 Output' in mixers:
+          speacer = 'UMC1820 Output'
         mic = alsaaudio.Mixer(control = mic, cardindex = card_index)
-        speaker = alsaaudio.Mixer(control = 'Speaker', cardindex = card_index)
+        speaker = alsaaudio.Mixer(control = speacer, cardindex = card_index)
 
     return speaker, mic
 
